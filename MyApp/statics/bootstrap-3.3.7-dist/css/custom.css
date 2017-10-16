@@ -1,0 +1,14 @@
+
+.signed{
+    background-color: green;
+}
+
+.unregistered{
+    background-color: #8c8c8c;
+}
+.graduated{
+    background-color: #d58512;
+}
+.drop-off{
+    background-color: inherit;
+}
