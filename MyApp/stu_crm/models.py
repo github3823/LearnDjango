@@ -21,10 +21,15 @@ class UserProfile(models.Model):#创建用户表
     school = models.ForeignKey('School')#关联School表
     def __str__(self):
         return self.name  # 反射字段名
+    class Meta:
+        permissions = (('view_customer_list',"可以查看客户列表"),
+                       ('view_customer_info', "可以查看客户详情"),
+                       ('edit_own_customer_info', "可以修改自己客户信息"),
+                       )
 class Customer(models.Model):#创建客户表
     qq = models.CharField(max_length=64,unique=True)
     name = models.CharField(max_length=32,blank=True,null=True)#客户资询字段名字不是必要的
-    ptone = models.BigIntegerField(blank=True,null=True)#电话，长整数
+    phone = models.BigIntegerField(blank=True,null=True)#电话，长整数
     course = models.ForeignKey('Course')#要咨询的课程，关联课程表
 
     course_type = models.CharField(max_length=64,choices=course_type_choices,default='offline_weekend')#要以什么形式上课

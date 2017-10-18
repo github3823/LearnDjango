@@ -6,6 +6,33 @@
 {% endblock %}
 
 {% block page-content %}
+    <form method="post" class="form-horizontal">{% csrf_token %}
+        {% for field in customer_form %}
+            <div class="form-group">
+            {% if field.field.required %}
+                <label  class="col-sm-2 control-label">*{{ field.label }}</label>
+            {% else %}
+                <label  style="font-weight: normal" class="col-sm-2 control-label">{{ field.label }}</label>
+            {% endif %}
 
-    {{ customer_form }}
+                <div class="col-sm-9">
+                    {{ field }}
+                    {% if field.errors %}
+                        <ul>
+                            {% for error in field.errors %}
+                                <li style="color: red">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        {% endfor %}
+        <div class="col-sm-11">
+            <input class="btn btn-success pull-right" type="submit" value="Save">
+        </div>
+
+    </form>
+
 {% endblock %}
