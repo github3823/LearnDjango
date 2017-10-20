@@ -1,0 +1,63 @@
+.page-container{
+    border: 1px dashed darkcyan;
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+.wrap-left{
+    width: 75%;
+    float: left;
+    background-color: #f0f8fc;
+}
+
+
+.wrap-right{
+    width: 25%;
+    float: left;
+    background-color: #2b669a;
+}
+
+.clear-both{
+    clear:both;
+
+}
+.footer{
+    height: 300px;
+    background-color: #2b669a;
+}
+
+.article-head-img img{
+    height: 125px;
+    width: 220px;
+}
+.article_box{
+    padding-bottom: 10px;
+
+}
+.article-brief{
+    margin-left: -150px;
+
+}
+.article-title{
+    font-size: 20px;
+}
+a:hover{
+    color: #3ca5f6;
+    text-decoration: none;
+}
+a:visited{
+    text-decoration: none;
+}
+a {
+    color: #333;
+}
+
+.article-brief-text{
+    margin-top: 5px;
+    color: #999999;
+    font-size: 15px;
+}
+body{
+    color: rgb(51, 51, 51);
+    font-family: Arial, 微软雅黑, "Microsoft yahei", "Hiragino Sans GB", "冬青黑体简体中文 w3", "Microsoft Yahei", "Hiragino Sans GB", "冬青黑体简体中文 w3", STXihei, 华文细黑, SimSun, 宋体, Heiti, 黑体, sans-serif;
+}

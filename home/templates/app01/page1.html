@@ -1,0 +1,12 @@
+
+{% extends 'app01/index.html'%}
+{% block menu %}
+ <p>menu1 menu2 menu3</p>
+{% endblock %}
+{% block div %}
+    <h2>page1</h2>
+    {% block father_block %}
+        {% include 'app01/regeister_com.html' %}
+    {% endblock %}
+{% endblock %}
+

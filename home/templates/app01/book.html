@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <ul>
+            {% for book in books %}
+                <li>{{ book.name }}</li>
+            {% endfor %}
+        </ul>
+
+    <form method="post" action="/payment/book/"> {% csrf_token %}
+        book name:<input type="text" name="name">
+        <input type="submit" value="创建新书">
+        <select name="publisher_id">
+            {% for publisher in publishers %}
+            <option value="{{ publisher.id }}" >{{ publisher.name }}</option>
+            {% endfor %}
+        </select>
+        <select name="author_ids" multiple="multiple">
+            {% for author in authors %}
+                <option value="{{ author.id }}">{{ author.first_name }} {{ author.last_name }}</option>
+            {% endfor %}
+        </select>
+    </form>
+    </div>
+</body>
+</html>

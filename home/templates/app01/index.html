@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block menu %}
+    <ul>
+        <li style="display: inline-block">Home</li>
+        <li style="display: inline-block">page1</li>
+        <li style="display: inline-block">page2</li>
+        <li style="display: inline-block">page3</li>
+        <li style="display: inline-block">page4</li>
+    </ul>
+{% endblock %}
+    {% block div %}
+    <div style="background-color: lime;width: 100px;height: 100px">中间
+    {% include 'app01/regeister_com.html' %}
+    </div>
+    {% endblock %}
+<footer>
+    <p>Powered by me</p>
+</footer>
+</body>
+</html>

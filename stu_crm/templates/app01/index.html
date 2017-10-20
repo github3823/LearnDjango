@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Oldboy CRM</h1>
+    {% block page-container %}
+    Welcome To OldBoy CRM
+        <div>
+        {% if request.user.is_authenticated %}
+        <span>{{ request.user.userprofile.name }}</span>
+        {% else %}
+
+        <span>登陆/注册</span>
+
+        {% endif %}
+        </div>
+    <a href="/accounts/logout">退出系统</a>
+    {% endblock %}
+</body>
+</html>
