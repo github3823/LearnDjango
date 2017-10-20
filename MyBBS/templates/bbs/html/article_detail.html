@@ -1,0 +1,85 @@
+{% extends '../base.html' %}
+{% load custom %}
+
+
+{% block page-container %}
+
+
+    <div class="wrap-left">
+        <div class="article-title-bg">{{ article_obj.title }}</div>
+        <div class="article-title-brief">
+            <span>作者：{{ article_obj.author.name }}</span>
+            <span>时间：{{ article_obj.pub_date }}</span>
+            <span>
+                <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                {% filter_comment article_obj as comments %}
+                {{ comments.comment_count }}
+            </span>
+        </div>
+        <div class="">
+            <img class="article-detail-head-img" src="/static/{{ article_obj.head_img|truncate_url }}">
+
+        </div>
+        <div class="article-content">
+        {{ article_obj.content }}
+        </div>
+
+        <div class="comment-box">
+            {% if request.user.is_authenticated %}
+                <textarea class="form-control" rows="3"></textarea>
+                <button style="margin-top: 10px" type="button" class="btn btn-success pull-right">评论</button>
+            {% else %}
+                <div class="jumbotron">
+                  <h4 class="text-center">请<a class="btn-link" href="{% url 'login' %}?next={{ request.path }}">登录</a>后评论</h4>
+
+                </div>
+
+            {% endif %}
+
+
+        </div>
+    </div>
+
+    <div class="wrap-right">
+        right
+    </div>
+
+    <div class="clear-both"></div>
+{% endblock %}
+
+{#post请求#}
+{% block bottom-js %}
+    <script>
+    function getCsft() {
+        return $("input[name='csrfmiddlewaretoken']").val();//获取csrf的值
+    }
+        $(document).ready(function(){
+            $(".comment-box button").click(function () {//绑定这个事件
+               var comment_text= $(".comment-box textarea").val();//获取评论值
+                if (comment_text.trim().length<5){//如果字数小于五
+                   alert('评论不能少于5个字，二五')//弹出提示
+                }else{//否则
+                    //post
+                    $.post("{% url 'post_comment' %}",//提交post内容到post_comment
+                            {
+                                'comment_type':1,//评论类型 1为评论，2为点赞
+                                article_id:"{{ article_obj.id }}",//提交被评论的是哪个文章
+                                parent_comment_id:null,//提交是否为子评论
+                                'comment':comment_text.trim(),//提交获取评论内容
+                                'csrfmiddlewaretoken':getCsft()//提交csft的token值
+
+                            },//#end post args
+
+                                function(callback){//回调函数
+                                    console.log(callback);//显示被回调的值
+                                    if (callback == 'post-comment-success'){
+                                        alert("post-comment-success")
+                                    }
+
+                            })//end post
+                }
+
+            });//end button
+        });
+    </script>
+{% endblock %}
