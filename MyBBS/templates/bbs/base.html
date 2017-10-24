@@ -18,8 +18,9 @@
     <link href="/static/bootstrap-3.3.7-dist/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/static/bootstrap-3.3.7-dist/css/navbar-fixed-top.css" rel="stylesheet">
     <link href="/static/bootstrap-3.3.7-dist/css/custom.css" rel="stylesheet">
+    <link href="/static/bootstrap-3.3.7-dist/css/navbar-fixed-top.css" rel="stylesheet">
+
 
 
   </head>
@@ -59,6 +60,8 @@
             {% else %}
                 <li class=""><a href="{% url 'login' %}">登录/注册</a></li>
             {% endif %}
+                <li class=""><a href="{% url 'new-article' %}">发贴</a></li>
+
           </ul>
             {% endblock %}
         </div><!--/.nav-collapse -->

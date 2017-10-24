@@ -44,7 +44,7 @@ class Comment(models.Model):#帖子评论
         if self.comment_type == 1 and len(self.comment) == 0:#选择评论且内容为空
             raise ValidationError('评论内容不能为空，二五')
     def __str__(self):
-        return '%s,P:%s,%s' %(self.article,self.parent_comment,self.comment)
+        return 'C:%s' %(self.comment)
 
 class Category(models.Model):#板块
     name = models.CharField(max_length=64,unique=True)#板块名

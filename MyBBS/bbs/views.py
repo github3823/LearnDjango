@@ -2,6 +2,9 @@ from django.shortcuts import render,HttpResponseRedirect,HttpResponse
 from bbs import models
 from django.contrib.auth import login,logout,authenticate #用户验证相关
 from django.contrib.auth.decorators import login_required
+from bbs import comment_hander
+from bbs import form
+import json
 # Create your views here.
 
 category_list = models.Category.objects.filter(set_as_top_menu=True).order_by('position_index')
@@ -47,6 +50,8 @@ def acc_logout(request):
 
 def article_detail(request,article_id):
     article_obj = models.Article.objects.get(id=article_id)
+    comment_tree = comment_hander.build_tree(article_obj.comment_set.select_related())
+
 
     return render(request,'bbs/html/article_detail.html',{'article_obj':article_obj,
                                                           'category_list': category_list,})
@@ -64,3 +69,15 @@ def comment(request):
         new_comment_obj.save()
 
         return HttpResponse('post-comment-success')
+
+def get_comments(request,article_id):
+    article_obj = models.Article.objects.get(id=article_id)
+    comment_tree =  comment_hander.build_tree(article_obj.comment_set.select_related())
+    tree_html = comment_hander.render_comment_tree(comment_tree)
+    return  HttpResponse(tree_html)#转为json格式前端用js处理
+
+
+def new_article(request):#发贴功能
+    if request.method == "GET":
+        article_form = form.ArticleModelForm()
+        return  render(request,'bbs/html/new_article.html',{'article_form':article_form})
