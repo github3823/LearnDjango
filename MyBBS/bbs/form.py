@@ -6,7 +6,7 @@ from bbs import models
 class ArticleModelForm(ModelForm):
     class Meta:
         model = models.Article
-        exclude = ()
+        exclude = ('author','pub_date','priority')
 
     def __init__(self, *args, **kwargs):
         super(ArticleModelForm, self).__init__(*args, **kwargs)  # 先继承下，再重写

@@ -74,10 +74,43 @@ def get_comments(request,article_id):
     article_obj = models.Article.objects.get(id=article_id)
     comment_tree =  comment_hander.build_tree(article_obj.comment_set.select_related())
     tree_html = comment_hander.render_comment_tree(comment_tree)
-    return  HttpResponse(tree_html)#转为json格式前端用js处理
+    return  HttpResponse(tree_html)
 
-
+#@login_required#(login_url='指定url')第一种方法，指定登录跳转位置
+@login_required()#直接setting里写LOGIN_URL=指定
 def new_article(request):#发贴功能
     if request.method == "GET":
         article_form = form.ArticleModelForm()
         return  render(request,'bbs/html/new_article.html',{'article_form':article_form})
+    elif request.method =="POST":
+        print(request.POST)
+        print(request.FILES)
+        article_form = form.ArticleModelForm(request.POST,request.FILES)#文件和图片在FILES参数里
+        if article_form.is_valid():
+            data = article_form.cleaned_data
+            data['author_id'] = request.user.userprofile.id
+            article_obj = models.Article(**data)
+            article_obj.save()
+            #article_form.save()
+            return HttpResponse('发布成功')
+        else:
+            return render(request, 'bbs/html/new_article.html', {'article_form': article_form})
+
+def file_upload(request):#文件上传
+    print(request.FILES.get('filename'))
+    file_obj = request.FILES.get('filename')
+    with open('templates/bbs/html/upload/%s' %file_obj.name, 'wb+') as destination:
+        for chunk in file_obj.chunks():
+            destination.write(chunk)
+    return render(request, 'bbs/html/new_article.html')
+
+def get_latest_article_count(request):#获取更新文章数量
+    latest_article_id = request.GET.get("latest_id")
+    print("前端传的",latest_article_id)
+    if latest_article_id:
+        new_article_count = models.Article.objects.filter(id__gt = latest_article_id).count()
+        print("new article count",new_article_count)
+    else:
+        new_article_count=0
+    return HttpResponse(json.dumps({'new_article_count':new_article_count}))
+

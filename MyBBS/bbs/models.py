@@ -60,6 +60,9 @@ class UserProfile(models.Model):#用户
     name = models.CharField(max_length=32)#名字
     signature = models.CharField(max_length=255,blank=True,null=True)#签名
     head_img = models.ImageField(height_field=150,width_field=150,blank=True,null=True)#头像
+    #for web qq
+    friends = models.ManyToManyField('self',related_name="my_friends",blank=True)#用户关系表
+
 
     def __str__(self):
         return self.name

@@ -7,6 +7,12 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+
+
+
     <link rel="icon" href="http://v3.bootcss.com/favicon.ico">
 
     <title>草榴社区</title>
@@ -51,6 +57,8 @@
               {% endif %}
 
             {% endfor%}
+
+                <li class=""><a href="{% url 'chat_dashboard' %}">撩妹战区</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if request.user.is_authenticated %}

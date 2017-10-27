@@ -17,11 +17,11 @@
             </span>
         </div>
         <div class="">
-            <img class="article-detail-head-img" src="/static/{{ article_obj.head_img|truncate_url }}">
+            <img class="article-detail-head-img" src="/static/bbs/html/upload/{{ article_obj.head_img|truncate_url }}">
 
         </div>
         <div class="article-content">
-        {{ article_obj.content }}
+        {{ article_obj.content |safe }}
         </div>
 
         <div class="comment-box">
