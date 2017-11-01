@@ -85,8 +85,8 @@ def file_upload(request):
             new_file_obj.write(chunk)
             recv_size += len(chunk)
             cache.set(file_obj.name,recv_size)
-    return HttpResponse('upload success')
+    return HttpResponse('--upload success--')
 
 
 def file_upload_progress(request):
-    pass
+    return HttpResponse('--pass--')

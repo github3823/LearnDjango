@@ -10,6 +10,7 @@ import json
 category_list = models.Category.objects.filter(set_as_top_menu=True).order_by('position_index')
 
 def index(request):
+    # raise  ArithmeticError
     category_obj = models.Category.objects.get(position_index=1)
     article_list = models.Article.objects.filter(status='published')
     return render(request,'bbs/html/index.html',{'category_list':category_list,
